@@ -30,7 +30,7 @@ exports.execute = async (client, message, args) => {
     await embedMsg.react('3️⃣');
 
     const filter = (reaction, user) => {
-      return ['1️⃣', '2️⃣'].includes(reaction.emoji.name) && user.id === message.author.id;
+      return ['1️⃣', '2️⃣', '3️⃣'].includes(reaction.emoji.name) && user.id === message.author.id;
     };
 
     const collector = embedMsg.createReactionCollector(filter, { time: 60000 });
