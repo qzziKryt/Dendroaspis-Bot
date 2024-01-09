@@ -36,6 +36,7 @@ exports.execute = async (client, message, args) => {
     collector.on('collect', async (reaction) => {
       if (reaction.emoji.name === '1️⃣') {
         await embedMsg.edit(embed1);
+        reaction.users.remove(message.author.id);
       } else if (reaction.emoji.name === '2️⃣') {
         const embed2 = new MessageEmbed()
           .setTitle("Список Emoji")
@@ -43,6 +44,7 @@ exports.execute = async (client, message, args) => {
           .setFooter("Страница 2")
           .setTimestamp();
         await embedMsg.edit(embed2);
+        reaction.users.remove(message.author.id);
       }
     });
   } catch (error) {
