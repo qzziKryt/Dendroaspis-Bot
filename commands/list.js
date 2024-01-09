@@ -27,6 +27,7 @@ exports.execute = async (client, message, args) => {
 
     await embedMsg.react('1️⃣');
     await embedMsg.react('2️⃣');
+    await embedMsg.react('3️⃣');
 
     const filter = (reaction, user) => {
       return ['1️⃣', '2️⃣'].includes(reaction.emoji.name) && user.id === message.author.id;
@@ -56,6 +57,14 @@ exports.execute = async (client, message, args) => {
           .addField("<a:rflx_l:1194373752063004672>", "^a:rflx_l:1194373752063004672>", true)
           .addField("<a:rflx_m:1194373765375737956>", "^a:rflx_m:1194373765375737956>", true)
           .addField("<a:rflx_n:1194373647557730334>", "^a:rflx_n:1194373647557730334>", true)
+          .setColor("#rrggbb")
+          .setFooter("Страница 2")
+          .setTimestamp();
+        await embedMsg.edit(embed2);
+        reaction.users.remove(message.author.id);
+      } else if (reaction.emoji.name === '3️⃣') {
+        const embed3 = new MessageEmbed()
+          .setTitle("Список Emoji")
           .addField("<a:rflx_o:1194373655438831737>", "^a:rflx_o:1194373655438831737>", true)
           .addField("<a:rflx_p:1194373599809765448>", "^a:rflx_p:1194373599809765448>", true)
           .addField("<a:rflx_q:1194373712590405712>", "^a:rflx_q:1194373712590405712>", true)
@@ -69,11 +78,10 @@ exports.execute = async (client, message, args) => {
           .addField("<a:rflx_y:1194373731431227442>", "^a:rflx_y:1194373731431227442>", true)
           .addField("<a:rflx_z:1194373576405553243>", "^a:rflx_z:1194373576405553243>", true)
           .setColor("#rrggbb")
-          .setFooter("Страница 2")
+          .setFooter("Страница 3")
           .setTimestamp();
-        await embedMsg.edit(embed2);
+        await embedMsg.edit(embed3);
         reaction.users.remove(message.author.id);
-      }
     });
   } catch (error) {
     console.error(error);
