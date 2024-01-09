@@ -82,6 +82,7 @@ exports.execute = async (client, message, args) => {
           .setTimestamp();
         await embedMsg.edit(embed3);
         reaction.users.remove(message.author.id);
+      }
     });
   } catch (error) {
     console.error(error);
