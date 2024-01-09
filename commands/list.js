@@ -67,7 +67,7 @@ exports.execute = async (client, message, args) => {
           .addField("<a:rflx_w:1194373717774569553>", "^a:rflx_w:1194373717774569553>", true)
           .addField("<a:rflx_x:1194373705640464525>", "^a:rflx_x:1194373705640464525>", true)
           .addField("<a:rflx_y:1194373731431227442>", "^a:rflx_y:1194373731431227442>", true)
-          .addField("<a:rflx_z:1194373576405553243>", "^a:rflx_z:1194373576405553243>", true);
+          .addField("<a:rflx_z:1194373576405553243>", "^a:rflx_z:1194373576405553243>", true)
           .setColor("#rrggbb")
           .setFooter("Страница 2")
           .setTimestamp();
