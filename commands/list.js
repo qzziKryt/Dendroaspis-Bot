@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
 exports.execute = (client, message, args) => {
-  const embed = new MessageEmbed()
+  const embed1 = new MessageEmbed()
     .setTitle("Список Emoji")
     .addField("<a:9410pinkarrow:1194324464104636416>", "`^a:9410pinkarrow:1194324464104636416>`", true)
     .addField("<a:6069pixelhearts:1194304144740192396>", "`^a:6069pixelhearts:1194304144740192396>`", true)
@@ -19,8 +19,33 @@ exports.execute = (client, message, args) => {
     .addField("<a:9_:1194373581128343712>", "`^a:9_:1194373581128343712>`", true)
     // LETTERS
     .setColor("#rrggbb")
+    .setFooter("Страница 1")
     .setTimestamp();
-  message.channel.send(embed);
+  let embedMsg = await message.channel.send(embed1);
+      // Добавление двух реакций
+  await embedMsg.react('1️⃣');
+  await embedMsg.react('2️⃣');
+
+    // Создание коллектора реакций
+  const filter = (reaction, user) => {
+    return ['👍', '👎'].includes(reaction.emoji.name) && user.id === message.author.id;
+  };
+
+  const collector = embedMsg.createReactionCollector(filter, { time: 60000 }); // Настройка времени жизни коллектора
+  
+  collector.on('collect', (reaction) => {
+    if (reaction.emoji.name === '1️⃣') {
+      embedMsg.edit(embed1);
+    } else if (reaction.emoji.name === '2️⃣') {
+      const embed2 = new MessageEmbed()
+        .setTitle("Список Emoji")
+        .setColor("#rrggbb")
+        .setFooter("Страница 2")
+        .setTimestamp();
+      embedMsg.edit(embed2);
+    }
+  });
+  
 }
 
 exports.help = {
