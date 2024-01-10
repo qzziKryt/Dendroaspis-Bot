@@ -42,7 +42,7 @@ exports.execute = async (client, message, args) => {
         reaction.users.remove(message.author.id);
       } else if (reaction.emoji.name === '❌') {
         response.first().delete();
-        break;
+        return;
         reaction.users.remove(message.author.id);
       }
 
