@@ -13,7 +13,39 @@ exports.execute = async (client, message, args) => {
       return message.channel.send("У вас недостаточно прав.");
     }
 
-    let embedMsg = await message.channel.send("Вы хотите изменить Title? Введите ваш контент или \`skip\` или \`cancel\`. 📌");
+    let embedMsg = await message.channel.send("Вы хотите изменить Title? Введите ваш контент или \`skip\` или \`cancel\`.");
+
+    await embedMsg.react('⏩');
+    await embedMsg.react('❌');
+
+    const filter = (reaction, user) => {
+      return ['⏩', '❌'].includes(reaction.emoji.name) && user.id === message.author.id;
+    };
+
+    const collector = embedMsg.createReactionCollector(filter, { time: 60000 });
+
+    collector.on('collect', async (reaction) => {
+      if (reaction.emoji.name === '⏩') {
+        switch (step.stepName) {
+          case 'Footer Image':
+            embed[step.propName](embed.footer ? embed.footer.text : '', content);
+            break;
+          case 'Author Image':
+            embed[step.propName](embed.author ? embed.author.name : '', content);
+            break;
+          default:
+          // Replace ^ with < and >
+          content = content.replace(/\^/g, '<');
+          embed[step.propName](content);
+          break;
+        }
+        reaction.users.remove(message.author.id);
+      } else if (reaction.emoji.name === '❌') {
+        response.first().delete();
+        break;
+        reaction.users.remove(message.author.id);
+        reaction.users.remove(client.user.id);
+      }
 
     const embed = new Discord.MessageEmbed();
 
@@ -30,7 +62,7 @@ exports.execute = async (client, message, args) => {
     ];
 
     for (const step of steps) {
-      embedMsg.edit(`Вы хотите изменить ${step.stepName}? Введите ваш контент или \`skip\` или \`cancel\`. 📌`);
+      embedMsg.edit(`Вы хотите изменить ${step.stepName}? Введите ваш контент или \`skip\` или \`cancel\`.`);
 
       const response = await message.channel.awaitMessages(filter, options);
       let content = response.first().content;
