@@ -8,8 +8,7 @@ exports.execute = async (client, message, args) => {
       max: 1
     };
 
-    if (!message.member.hasPermission("ADMINISTRATOR")) 
-    {
+    if (!message.member.hasPermission("ADMINISTRATOR")) {
       return message.channel.send("У вас недостаточно прав.");
     }
 
@@ -22,29 +21,7 @@ exports.execute = async (client, message, args) => {
       return ['⏩', '❌'].includes(reaction.emoji.name) && user.id === message.author.id;
     };
 
-    const collector = embedMsg.createReactionCollector(filter, { time: 60000 });
-
-    collector.on('collect', async (reaction) => {
-      if (reaction.emoji.name === '⏩') {
-        switch (step.stepName) {
-          case 'Footer Image':
-            embed[step.propName](embed.footer ? embed.footer.text : '', content);
-            break;
-          case 'Author Image':
-            embed[step.propName](embed.author ? embed.author.name : '', content);
-            break;
-          default:
-          // Replace ^ with < and >
-          content = content.replace(/\^/g, '<');
-          embed[step.propName](content);
-          break;
-        }
-        reaction.users.remove(message.author.id);
-      } else if (reaction.emoji.name === '❌') {
-        response.first().delete();
-        return;
-        reaction.users.remove(message.author.id);
-      }
+    const collector = embedMsg.createReactionCollector(reactionFilter, { time: 60000 });
 
     const embed = new Discord.MessageEmbed();
 
@@ -80,10 +57,10 @@ exports.execute = async (client, message, args) => {
             embed[step.propName](embed.author ? embed.author.name : '', content);
             break;
           default:
-          // Replace ^ with < and >
-          content = content.replace(/\^/g, '<');
-          embed[step.propName](content);
-          break;
+            // Replace ^ with < and >
+            content = content.replace(/\^/g, '<');
+            embed[step.propName](content);
+            break;
         }
       }
 
@@ -91,16 +68,16 @@ exports.execute = async (client, message, args) => {
       response.first().delete();
     }
 
-      // Ask for channel to send the embed
+    // Ask for channel to send the embed
     embedMsg.edit("Пожалуйста, укажите канал для отправки этого встроенного сообщения. 📝");
-      let channelMsg = await message.channel.awaitMessages(filter, options);
-      const mentionedChannel = channelMsg.first().mentions.channels.first();
-      if (channelMsg.first().content.toLowerCase() === 'delete') return embedMsg.edit("Удаленно.");;
-      if (!mentionedChannel) {
-        message.channel.send('Канал не найден. 💀');
-      }
+    let channelMsg = await message.channel.awaitMessages(filter, options);
+    const mentionedChannel = channelMsg.first().mentions.channels.first();
+    if (channelMsg.first().content.toLowerCase() === 'delete') return embedMsg.edit("Удаленно.");;
+    if (!mentionedChannel) {
+      message.channel.send('Канал не найден. 💀');
+    }
 
-      mentionedChannel.send(embed);
+    mentionedChannel.send(embed);
 
   } catch (error) {
     console.error(error);
@@ -108,8 +85,7 @@ exports.execute = async (client, message, args) => {
 };
 
 exports.help = {
-    name: "embed",
-    aliases: ["emb"],
-    usage: `embed`
+  name: "embed",
+  aliases: ["emb"],
+  usage: `embed`
 };
-
