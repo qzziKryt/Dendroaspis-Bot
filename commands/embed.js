@@ -110,8 +110,10 @@ exports.execute = async (client, message, args) => {
               break;
           }
         }
+        reaction.users.remove(message.author.id);
       } else if (reaction.emoji.name === "❌") {
         stopLoop = true;
+        reaction.users.remove(message.author.id);
       }
     });
   } catch (error) {
