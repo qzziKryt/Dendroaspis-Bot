@@ -7,7 +7,7 @@ exports.execute = async (client, message, args) => {
     const options = {
       max: 1,
     };
-    
+
     let stopLoop = false;
 
     if (!message.member.hasPermission("ADMINISTRATOR")) {
@@ -27,27 +27,6 @@ exports.execute = async (client, message, args) => {
 
     const collector = embedMsg.createReactionCollector(reactionFilter, { time: 60000 });
 
-    collector.on('collect', async (reaction) => {
-      if (reaction.emoji.name === '⏩') {
-        switch (step.stepName) {
-          case "Footer Image":
-            embed[step.propName](embed.footer ? embed.footer.text : "", content);
-            break;
-          case "Author Image":
-            embed[step.propName](embed.author ? embed.author.name : "", content);
-            break;
-          default:
-            // Replace ^ with < and >
-            content = content.replace(/\^/g, "<");
-            embed[step.propName](content);
-            break;
-        }
-      } else if (reaction.emoji.name === '❌') {
-        stopLoop = true;
-      }
-    });
-
-
     const embed = new Discord.MessageEmbed();
 
     const steps = [
@@ -62,57 +41,79 @@ exports.execute = async (client, message, args) => {
       { stepName: "Timestamp", propName: "setTimestamp" },
     ];
 
-    for (const step of steps) {
-      if (stopLoop) break;
+    collector.on("collect", async (reaction) => {
+      for (const step of steps) {
+        if (stopLoop) break;
 
-      embedMsg.edit(
-        `Вы хотите изменить ${step.stepName}? Введите ваш контент или \`skip\` или \`cancel\`.`
-      );
+        embedMsg.edit(
+          `Вы хотите изменить ${step.stepName}? Введите ваш контент или \`skip\` или \`cancel\`.`
+        );
 
-      const response = await message.channel.awaitMessages(filter, options);
-      let content = response.first().content;
+        const response = await message.channel.awaitMessages(filter, options);
+        let content = response.first().content;
 
-      if (content.toLowerCase() === "cancel") {
+        if (content.toLowerCase() === "cancel") {
+          response.first().delete();
+          stopLoop = true;
+        }
+
+        if (content.toLowerCase() !== "skip" && !stopLoop) {
+          switch (step.stepName) {
+            case "Footer Image":
+              embed[step.propName](embed.footer ? embed.footer.text : "", content);
+              break;
+            case "Author Image":
+              embed[step.propName](embed.author ? embed.author.name : "", content);
+              break;
+            default:
+              // Replace ^ with < and >
+              content = content.replace(/\^/g, "<");
+              embed[step.propName](content);
+              break;
+          }
+        }
+
+        // Delete user's message after processing
         response.first().delete();
+      }
+
+      // Ask for channel to send the embed
+      if (!stopLoop) {
+        embedMsg.edit(
+          "Пожалуйста, укажите канал для отправки этого встроенного сообщения. 📝"
+        );
+        let channelMsg = await message.channel.awaitMessages(filter, options);
+        const mentionedChannel = channelMsg.first().mentions.channels.first();
+        if (channelMsg.first().content.toLowerCase() === "delete")
+          return embedMsg.edit("Удаленно.");
+        if (!mentionedChannel) {
+          message.channel.send("Канал не найден. 💀");
+        }
+
+        // Send the embed
+        mentionedChannel.send(embed);
+      }
+      
+      if (reaction.emoji.name === "⏩") {
+        for (const step of steps) {
+          switch (step.stepName) {
+            case "Footer Image":
+              embed[step.propName](embed.footer ? embed.footer.text : "", content);
+              break;
+            case "Author Image":
+              embed[step.propName](embed.author ? embed.author.name : "", content);
+              break;
+            default:
+              // Replace ^ with < and >
+              content = content.replace(/\^/g, "<");
+              embed[step.propName](content);
+              break;
+          }
+        }
+      } else if (reaction.emoji.name === "❌") {
         stopLoop = true;
       }
-
-      if (content.toLowerCase() !== "skip" && !stopLoop) {
-        switch (step.stepName) {
-          case "Footer Image":
-            embed[step.propName](embed.footer ? embed.footer.text : "", content);
-            break;
-          case "Author Image":
-            embed[step.propName](embed.author ? embed.author.name : "", content);
-            break;
-          default:
-            // Replace ^ with < and >
-            content = content.replace(/\^/g, "<");
-            embed[step.propName](content);
-            break;
-        }
-      }
-
-      // Delete user's message after processing
-      response.first().delete();
-    }
-
-    // Ask for channel to send the embed
-    if (!stopLoop) {
-      embedMsg.edit(
-        "Пожалуйста, укажите канал для отправки этого встроенного сообщения. 📝"
-      );
-      let channelMsg = await message.channel.awaitMessages(filter, options);
-      const mentionedChannel = channelMsg.first().mentions.channels.first();
-      if (channelMsg.first().content.toLowerCase() === "delete")
-        return embedMsg.edit("Удаленно.");
-      if (!mentionedChannel) {
-        message.channel.send("Канал не найден. 💀");
-      }
-
-      // Send the embed
-      mentionedChannel.send(embed);
-    }
+    });
   } catch (error) {
     console.error(error);
   }
