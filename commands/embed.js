@@ -1,4 +1,4 @@
-onst Discord = require("discord.js");
+const Discord = require("discord.js");
 const { MessageEmbed } = require("discord.js");
 
 exports.execute = async (client, message, args) => {
