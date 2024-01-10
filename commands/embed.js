@@ -1,12 +1,9 @@
-const Discord = require("discord.js");
+onst Discord = require("discord.js");
 const { MessageEmbed } = require("discord.js");
 
 exports.execute = async (client, message, args) => {
   try {
     const filter = msg => msg.author.id == message.author.id;
-    const reactionFilter = (reaction, user) => {
-      return ['⏩', '❌'].includes(reaction.emoji.name) && user.id === message.author.id;
-    }
     const options = {
       max: 1
     };
@@ -17,34 +14,6 @@ exports.execute = async (client, message, args) => {
     }
 
     let embedMsg = await message.channel.send("Вы хотите изменить Title? Введите ваш контент или \`skip\` или \`cancel\`.");
-
-    await embedMsg.react('⏩');
-    await embedMsg.react('❌');
-
-    const collector = embedMsg.createReactionCollector(filter, { time: 60000 });
-
-    collector.on('collect', async (reaction) => {
-      if (reaction.emoji.name === '⏩') {
-        switch (step.stepName) {
-          case 'Footer Image':
-            embed[step.propName](embed.footer ? embed.footer.text : '', content);
-            break;
-          case 'Author Image':
-            embed[step.propName](embed.author ? embed.author.name : '', content);
-            break;
-          default:
-          // Replace ^ with < and >
-          content = content.replace(/\^/g, '<');
-          embed[step.propName](content);
-          break;
-        }
-        reaction.users.remove(message.author.id);
-      } else if (reaction.emoji.name === '❌') {
-        response.first().delete();
-        break;
-        reaction.users.remove(message.author.id);
-        reaction.users.remove(client.user.id);
-      }
 
     const embed = new Discord.MessageEmbed();
 
@@ -95,7 +64,7 @@ exports.execute = async (client, message, args) => {
     embedMsg.edit("Пожалуйста, укажите канал для отправки этого встроенного сообщения. 📝");
       let channelMsg = await message.channel.awaitMessages(filter, options);
       const mentionedChannel = channelMsg.first().mentions.channels.first();
-      if (channelMsg.first().content.toLowerCase() === 'delete') return embedMsg.edit("Удаленно. 🤕");;
+      if (channelMsg.first().content.toLowerCase() === 'delete') return embedMsg.edit("Удаленно.");;
       if (!mentionedChannel) {
         message.channel.send('Канал не найден. 💀');
       }
