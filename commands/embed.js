@@ -4,6 +4,9 @@ const { MessageEmbed } = require("discord.js");
 exports.execute = async (client, message, args) => {
   try {
     const filter = msg => msg.author.id == message.author.id;
+    const reactionFilter = (reaction, user) => {
+      return ['⏩', '❌'].includes(reaction.emoji.name) && user.id === message.author.id;
+    }
     const options = {
       max: 1
     };
@@ -17,10 +20,6 @@ exports.execute = async (client, message, args) => {
 
     await embedMsg.react('⏩');
     await embedMsg.react('❌');
-
-    const filter = (reaction, user) => {
-      return ['⏩', '❌'].includes(reaction.emoji.name) && user.id === message.author.id;
-    };
 
     const collector = embedMsg.createReactionCollector(filter, { time: 60000 });
 
