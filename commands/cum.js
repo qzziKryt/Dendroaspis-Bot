@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 
-exports.execute = async (client, message, args) => {
+exports.execute = (client, message, args) => {
   const wallpapers = [
     "https://cdn.discordapp.com/attachments/1117898899462561792/1195418291930419240/this-is-my-kingdom-cum-cumming.gif?ex=65b3eb0a&is=65a1760a&hm=227a7478299f97b6f3ca513da539714b72a6e4d0786c973a79f4b9bb3e38c08b&",
     "https://cdn.discordapp.com/attachments/1117898899462561792/1195418848631984138/nut-cum.gif?ex=65b3eb8f&is=65a1768f&hm=15cf03db49405bc9b7fd7569f9eea7c188401526f6bbb410fc69e63f9887e80a&",
@@ -26,11 +26,7 @@ exports.execute = async (client, message, args) => {
     .setColor(`#rrggbb`)
     .setImage(`${response}`);
   }
-  
-  try {
-    await message.channel.send(embedMessage);
-  } catch (error) {
-    console.error(error);
+  message.channel.send(embedMsg);
   }
 }
 
