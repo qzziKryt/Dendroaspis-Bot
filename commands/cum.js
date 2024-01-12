@@ -37,7 +37,7 @@ exports.execute = (client, message, args) => {
     embedMsg = embed;
   } else {
     embedMsg = new MessageEmbed()
-    .setDescription(`# <@${message.author.id}> обкончал <@${user.id}>`)
+    .setTitle(`${message.author.toString()} обкончал ${user.toString()}`)
     .setColor(`#rrggbb`)
     .setImage(`${response}`);
   }
