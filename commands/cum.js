@@ -8,12 +8,18 @@ exports.execute = (client, message, args) => {
     "https://cdn.discordapp.com/attachments/1117898899462561792/1195418891724279808/gaviscon-kingdom-come.gif?ex=65b3eb99&is=65a17699&hm=9dfe88a16caa50b279e0f93e19381243522463c0d11f60988742299ddee8eaff&",
     "https://cdn.discordapp.com/attachments/1117898899462561792/1195418902402961418/cum.gif?ex=65b3eb9c&is=65a1769c&hm=7b2444ba1af4cde7051162a2644c8d9f9bcc2d9371a6bbc0c12b1b1ec7eccbc3&"
   ];
+  let user = message.mentions.users.first();
   const response = wallpapers[Math.floor(Math.random() * wallpapers.length)];
   const embed = new MessageEmbed()
     .setTitle('cum')
     .setColor(`#rrggbb`)
     .setImage(`${response}`)
-  message.channel.send(embed);
+  const embed1 = new MessageEmbed()
+    .setTitle(message.author.tag + ` обкончал <@${data.user}>`)
+    .setColor(`#rrggbb`)
+    .setImage(`${response}`)
+  if (!user) return message.channel.send(embed);
+  else return message.channel.send(embed1);
 }
 
 exports.help = {
