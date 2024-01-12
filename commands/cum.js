@@ -13,7 +13,6 @@ exports.execute = (client, message, args) => {
     .setTitle('cum')
     .setColor(`#rrggbb`)
     .setImage(`${response}`)
-    .setFooter(member.user.displayName, member.user.displayAvatarURL())
   message.channel.send(embed);
 }
 
