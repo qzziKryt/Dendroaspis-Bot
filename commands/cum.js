@@ -15,7 +15,7 @@ exports.execute = (client, message, args) => {
     .setColor(`#rrggbb`)
     .setImage(`${response}`)
   const embed1 = new MessageEmbed()
-    .setTitle(message.author.tag + ` обкончал <@${data.user}>`)
+    .setTitle(`${message.author.username} обкончал ${message.user.username}`)
     .setColor(`#rrggbb`)
     .setImage(`${response}`)
   if (!user) {
