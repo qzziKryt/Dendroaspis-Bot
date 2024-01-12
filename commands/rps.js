@@ -18,7 +18,7 @@ exports.execute = async (client, message, args) => {
     // If they didn't respond back in time
     if (!reacted) {
       await msg.reactions.removeAll();
-      return msg.edit(`Думаю, автолуз ${DISAPPOINTED}`);
+      return msg.edit(`Превышено время ожидания ${DISAPPOINTED}`);
     }
 
     const botChoice = emojiArray[Math.floor(Math.random() * emojiArray.length)];
@@ -71,9 +71,9 @@ function getResult(me, botChosen) {
   ) {
     return "Ты выиграл!";
   } else if (me === botChosen) {
-    return "Каша малаша!";
+    return "Ничья!";
   } else {
-    return ":(";
+    return "Ты проиграл!";
   }
 }
 
