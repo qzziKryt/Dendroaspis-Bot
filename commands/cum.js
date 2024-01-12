@@ -8,21 +8,26 @@ exports.execute = (client, message, args) => {
     "https://cdn.discordapp.com/attachments/1117898899462561792/1195418891724279808/gaviscon-kingdom-come.gif?ex=65b3eb99&is=65a17699&hm=9dfe88a16caa50b279e0f93e19381243522463c0d11f60988742299ddee8eaff&",
     "https://cdn.discordapp.com/attachments/1117898899462561792/1195418902402961418/cum.gif?ex=65b3eb9c&is=65a1769c&hm=7b2444ba1af4cde7051162a2644c8d9f9bcc2d9371a6bbc0c12b1b1ec7eccbc3&"
   ];
+  
   let user = message.mentions.users.first();
+  let embedMsg;
   const response = wallpapers[Math.floor(Math.random() * wallpapers.length)];
+  
   const embed = new MessageEmbed()
     .setTitle('cum')
     .setColor(`#rrggbb`)
-    .setImage(`${response}`)
-  const embed1 = new MessageEmbed()
-    .setTitle(`${message.author.username} обкончал ${message.user.username}`)
-    .setColor(`#rrggbb`)
-    .setImage(`${response}`)
+    .setImage(`${response}`);
+  
   if (!user) {
-    message.channel.send(embed)
+    embedMsg = embed;
   } else {
-    message.channel.send(embed1);
+    embedMsg = new MessageEmbed()
+    .setTitle(`${message.author.username} обкончал ${user.username}`)
+    .setColor(`#rrggbb`)
+    .setImage(`${response}`);
   }
+  
+  message.channel.send(embedMessage);
 }
 
 exports.help = {
