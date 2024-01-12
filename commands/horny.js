@@ -1,5 +1,6 @@
 const { MessageEmbed } = require("discord.js");
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
+const fs = require("fs");
 
 exports.execute = (client, message, args) => {
   if (!message.mentions.users.size) { // если написано $wasted, то показываем аватарку автора сообщения
