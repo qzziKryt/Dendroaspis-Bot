@@ -4,7 +4,7 @@ const fs = require("fs");
 
 exports.execute = (client, message, args) => {
   if (!message.mentions.users.size) { // если написано $wasted, то показываем аватарку автора сообщения
- 	let link = `https://some-random-api.ml/canvas/horny?avatar=${message.author.avatarURL({ format: 'png'})}` // Считываем эффект и говорим что картинка для эффекта - аватарка
+ 	let link = `https://some-random-api.ml/canvas/horny/?avatar=${message.author.avatarURL({ format: 'png'})}` // Считываем эффект и говорим что картинка для эффекта - аватарка
 	const attachmentt = new MessageAttachment(link, 'horny.gif');
  	const embed = new MessageEmbed()
 	 .setTitle(`${message.author.username} horny!`)
@@ -14,7 +14,7 @@ exports.execute = (client, message, args) => {
 	return message.channel.send(embed);
 	}
 	const WastedList = message.mentions.users.map(user => { // Если написали $wasted @test, то показываем триггер аватарки пользователя test
-	let link = `https://some-random-api.ml/canvas/horny?avatar=${user.avatarURL({ format: 'png'})}`
+	let link = `https://some-random-api.ml/canvas/horny/?avatar=${user.avatarURL({ format: 'png'})}`
   	const attachmentt = new MessageAttachment(link, 'horny.gif');
 	const embed = new MessageEmbed()
   	 .setTitle(`${user.username} horny!`)
