@@ -9,7 +9,7 @@ const DISAPPOINTED = "😞";
 exports.execute = async (client, message, args) => {
   try {
     const embedMsg = new MessageEmbed()
-      .setColor("#9479A3")
+      .setColor("#rrggbb")
       .setDescription("Камень, ножницы, бумага, 1, 2, 3!");
 
     const msg = await message.channel.send(embedMsg);
