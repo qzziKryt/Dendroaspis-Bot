@@ -18,8 +18,11 @@ exports.execute = (client, message, args) => {
     .setTitle(message.author.tag + ` обкончал <@${data.user}>`)
     .setColor(`#rrggbb`)
     .setImage(`${response}`)
-  if (!user) return message.channel.send(embed);
-  else return message.channel.send(embed1);
+  if (!user) {
+    message.channel.send(embed)
+  } else {
+    message.channel.send(embed1);
+  }
 }
 
 exports.help = {
