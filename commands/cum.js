@@ -27,7 +27,6 @@ exports.execute = (client, message, args) => {
     .setImage(`${response}`);
   }
   message.channel.send(embedMsg);
-  }
 }
 
 exports.help = {
