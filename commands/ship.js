@@ -19,9 +19,11 @@ exports.execute = async (client, message, args) => {
     const canvas = Canvas.createCanvas(400, 200);
     const context = canvas.getContext("2d");
 
-    // Рисуем текст и изображения на canvas
-    context.fillStyle = "#ffffff";
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    // Загружаем изображение для фона
+    const backgroundImage = await Canvas.loadImage("https://cdn.discordapp.com/attachments/1117898899462561792/1196134715418226802/22cb5f35e7865988.png?ex=65b68643&is=65a41143&hm=62d830c2e357799f8adf3d94542133e2d362309b908fc38f0ac7275336f71318&"); // Replace with the URL to your image
+
+    // Рисуем фон
+    context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
     // Загружаем аватарки пользователей
     const avatar1 = await Canvas.loadImage(user1.displayAvatarURL({ format: 'png', size: 128 }));
