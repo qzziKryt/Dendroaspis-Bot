@@ -3,6 +3,7 @@ const keep_alive = require("./keep_alive.js");
 const fetch = require("node-fetch");
 const client = new Discord.Client({ disableMentions: 'everyone' });
 const Eco = require("quick.eco");
+const Canvas = require('canvas');
 client.eco = new Eco.Manager(); // quick.eco
 client.db = Eco.db; // quick.db
 client.config = require("./botConfig");
