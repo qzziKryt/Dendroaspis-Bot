@@ -13,7 +13,7 @@ exports.execute = async (client, message, args) => {
     const user2 = message.mentions.users.last();
 
     // Генерация рандомного процента совпадения от 0 до 100
-    const matchPercentage = Math.floor(Math.random() * 101);
+    const matchPercentage = Math.floor(Math.random() * 99) + 1;
 
     // Создаем новое изображение с использованием Canvas
     const canvas = Canvas.createCanvas(400, 200);
