@@ -38,15 +38,15 @@ exports.execute = async (client, message, args) => {
     context.fillText(`❤️`, 180, 90);
 
     context.font = "20px Arial";
-    context.fillStyle = "##ffffff";
+    if (matchPercentage => 50) return context.fillStyle = "GREEN";
+    else return context.fillStyle = "RED";
     context.fillText(`${matchPercentage}%`, 175, 175);
 
     // Создаем вложение с изображением и отправляем его
     const attachment = new MessageAttachment(canvas.toBuffer(), "ship.png");
     const embed = new MessageEmbed()
-      .setTitle("Генерация картинки")
+      .setTitle("👫 Парочка")
       .setColor("#rrggbb")
-      .setDescription(`Совпадение между ${user1.tag} и ${user2.tag}: ${matchPercentage}%`)
       .attachFiles(attachment)
       .setImage("attachment://ship.png");
 
