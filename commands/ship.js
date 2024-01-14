@@ -15,31 +15,31 @@ exports.execute = async (client, message, args) => {
     // Генерация рандомного процента совпадения от 0 до 100
     const matchPercentage = Math.floor(Math.random() * 101);
 
-    // Создаем новое изображение с использованием canvas
+    // Создаем новое изображение с использованием Canvas
     const canvas = Canvas.createCanvas(400, 200);
     const context = canvas.getContext("2d");
-
-    // Загружаем изображение для фона
-    const backgroundImage = await Canvas.loadImage("https://cdn.discordapp.com/attachments/1117898899462561792/1196134715418226802/22cb5f35e7865988.png?ex=65b68643&is=65a41143&hm=62d830c2e357799f8adf3d94542133e2d362309b908fc38f0ac7275336f71318&"); // Replace with the URL to your image
-
-    // Рисуем фон
-    context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
     // Загружаем аватарки пользователей
     const avatar1 = await Canvas.loadImage(user1.displayAvatarURL({ format: 'png', size: 128 }));
     const avatar2 = await Canvas.loadImage(user2.displayAvatarURL({ format: 'png', size: 128 }));
 
-    // Рисуем аватарки на canvas
+    // Рисуем аватарки на Canvas
     context.drawImage(avatar1, 50, 25, 100, 100);
     context.drawImage(avatar2, 250, 25, 100, 100);
 
+    // Загружаем изображение для фона
+    const backgroundImage = await Canvas.loadImage("https://cdn.discordapp.com/attachments/1117898899462561792/1196134715418226802/22cb5f35e7865988.png?ex=65b68643&is=65a41143&hm=62d830c2e357799f8adf3d94542133e2d362309b908fc38f0ac7275336f71318&"); // Замените на URL вашего изображения
+
+    // Рисуем фон (изображение) поверх аватаров
+    context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+
     context.font = "30px Arial";
-    context.fillStyle = "#000000";
+    context.fillStyle = "#ffffff";
     context.fillText(`❤️`, 180, 90);
 
     context.font = "20px Arial";
-    context.fillStyle = "#000000";
-    context.fillText(`Совпадение: ${matchPercentage}%`, 50, 175);
+    context.fillStyle = "#ffffff";
+    context.fillText(`${matchPercentage}%`, 50, 175);
 
     // Создаем вложение с изображением и отправляем его
     const attachment = new MessageAttachment(canvas.toBuffer(), "ship.png");
