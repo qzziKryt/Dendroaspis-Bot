@@ -38,8 +38,8 @@ exports.execute = async (client, message, args) => {
     context.fillText(`❤️`, 180, 90);
 
     context.font = "20px Arial";
-    context.fillStyle = "#ffffff";
-    context.fillText(`${matchPercentage}%`, 50, 175);
+    context.fillStyle = "##ffffff";
+    context.fillText(`${matchPercentage}%`, 180, 175);
 
     // Создаем вложение с изображением и отправляем его
     const attachment = new MessageAttachment(canvas.toBuffer(), "ship.png");
