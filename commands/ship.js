@@ -38,8 +38,7 @@ exports.execute = async (client, message, args) => {
     context.fillText(`❤️`, 180, 90);
 
     context.font = "20px Arial";
-    if (matchPercentage => 50) return context.fillStyle = "GREEN";
-    else return context.fillStyle = "RED";
+    context.fillStyle = "ffffff";
     context.fillText(`${matchPercentage}%`, 175, 175);
 
     // Создаем вложение с изображением и отправляем его
