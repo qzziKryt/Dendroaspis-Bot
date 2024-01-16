@@ -1,49 +1,6 @@
 const { MessageAttachment, MessageEmbed } = require("discord.js");
 const Canvas = require("canvas");
 
-function getLoveColor(percentage) {
-  // Преобразование процента в оттенок зеленого
-  const hue = percentage * 1.2; // Умножаем на 1.2 для более зеленого оттенка
-  const saturation = 100;
-  const lightness = 50;
-
-  // Преобразование HSV в RGB
-  const c = (1 - Math.abs(2 * lightness - 1)) * saturation;
-  const x = c * (1 - Math.abs((hue / 60) % 2 - 1));
-  const m = lightness - c / 2;
-  let red = 0,
-    green = 0,
-    blue = 0;
-
-  if (0 <= hue && hue < 60) {
-    red = c;
-    green = x;
-  } else if (60 <= hue && hue < 120) {
-    red = x;
-    green = c;
-  } else if (120 <= hue && hue < 180) {
-    green = c;
-    blue = x;
-  } else if (180 <= hue && hue < 240) {
-    green = x;
-    blue = c;
-  } else if (240 <= hue && hue < 300) {
-    red = x;
-    blue = c;
-  } else if (300 <= hue && hue < 360) {
-    red = c;
-    blue = x;
-  }
-
-  // Преобразование значений RGB от 0 до 255
-  red = Math.round((red + m) * 255);
-  green = Math.round((green + m) * 255);
-  blue = Math.round((blue + m) * 255);
-
-  // Возвращаем цвет в формате RGB
-  return `rgb(${red},${green},${blue})`;
-}
-
 exports.execute = async (client, message, args) => {
   try {
     // Проверяем, есть ли упоминание двух пользователей в сообщении
@@ -56,22 +13,24 @@ exports.execute = async (client, message, args) => {
     const user2 = message.mentions.users.last();
 
     // Генерация рандомного процента совпадения от 1 до 100
-    const matchPercentage = Math.floor(Math.random() * 100) + 1;
+    const matchPercentage = Math.floor(Math.random() * 99) + 1;
 
-    // Получаем цвет в зависимости от процента
-    const colorLove = getLoveColor(matchPercentage);
+    let colorLove = "#ffffff";
+
+    if (matchPercentage >= 50) colorLove = "#00FF00"; // зеленый
+    else colorLove = "#FF0000"; // красный
 
     // Массив с вариациями фонового изображения
     const backgrounds = [
       {
         url: "https://cdn.discordapp.com/attachments/1117898899462561792/1196134715418226802/22cb5f35e7865988.png?ex=65b68643&is=65a41143&hm=62d830c2e357799f8adf3d94542133e2d362309b908fc38f0ac7275336f71318&",
-        avatar1Position: { x: 60, y: 25 },
-        avatar2Position: { x: 240, y: 25 }
+        avatar1Position: { x: 80, y: 25 },
+        avatar2Position: { x: 210, y: 40 }
       },
       {
         url: "https://cdn.discordapp.com/attachments/985517052460683294/1196844995701907466/maxresdefault.png?ex=65b91bc3&is=65a6a6c3&hm=a6b81175c10759df4b20114d1d7578fc6ce3547759c4c6f459d20abe2463e909&",
-        avatar1Position: { x: 100, y: 25 },
-        avatar2Position: { x: 200, y: 25 }
+        avatar1Position: { x: 120, y: 30 },
+        avatar2Position: { x: 225, y: 65 }
       },
       // Добавьте сколько угодно вариаций
     ];
@@ -95,5 +54,37 @@ exports.execute = async (client, message, args) => {
     context.globalCompositeOperation = 'destination-over';
 
     // Рисуем аватарки на Canvas с учетом выбранного расположения
-    context.drawImage(avatar1, randomBackground.avatar1Position.x, randomBackground.avatar1Position.y, 100, 100);
-    context.drawImage(avatar
+    context.drawImage(avatar1, randomBackground.avatar1Position.x, randomBackground.avatar1Position.y, 90, 90);
+    context.drawImage(avatar2, randomBackground.avatar2Position.x, randomBackground.avatar2Position.y, 90, 90);
+
+    // Сбрасываем режим наложения
+    context.globalCompositeOperation = 'source-over';
+
+    context.font = "30px Arial";
+    context.fillStyle = colorLove;
+    context.fillText(`❤️`, 180, 90);
+
+    context.font = "20px Arial";
+    context.fillStyle = colorLove;
+    context.fillText(`${matchPercentage}%`, 175, 175);
+
+    // Создаем вложение с изображением и отправляем его
+    const attachment = new MessageAttachment(canvas.toBuffer(), "ship.png");
+    const embed = new MessageEmbed()
+      .setTitle("👫 Парочка")
+      .setColor("#rrggbb")
+      .attachFiles(attachment)
+      .setImage("attachment://ship.png");
+
+    message.channel.send(embed);
+  } catch (error) {
+    console.error("Ошибка выполнения команды:", error);
+    message.channel.send("Произошла ошибка при обработке команды.");
+  }
+}
+
+exports.help = {
+    name: "ship",
+    aliases: [""],
+    usage: `ship`
+}
