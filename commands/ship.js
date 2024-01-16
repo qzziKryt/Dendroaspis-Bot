@@ -15,10 +15,10 @@ exports.execute = async (client, message, args) => {
     // Генерация рандомного процента совпадения от 1 до 100
     const matchPercentage = Math.floor(Math.random() * 99) + 1;
 
-    const colorLove = "#ffffff";
+    let colorLove = "#ffffff";
 
-    if (matchPercentage >= 50) return colorLove = "GREEN";
-    else return colorLove = "RED";
+    if (matchPercentage >= 50) colorLove = "#00FF00"; // зеленый
+    else colorLove = "#FF0000"; // красный
 
     // Массив с вариациями фонового изображения
     const backgrounds = [
@@ -55,11 +55,11 @@ exports.execute = async (client, message, args) => {
     context.drawImage(avatar2, randomBackground.avatar2Position.x, randomBackground.avatar2Position.y, 100, 100);
 
     context.font = "30px Arial";
-    context.fillStyle = "colorLove";
+    context.fillStyle = colorLove;
     context.fillText(`❤️`, 180, 90);
 
     context.font = "20px Arial";
-    context.fillStyle = "colorLove";
+    context.fillStyle = colorLove;
     context.fillText(`${matchPercentage}%`, 175, 175);
 
     // Создаем вложение с изображением и отправляем его
