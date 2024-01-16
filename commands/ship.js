@@ -47,18 +47,18 @@ exports.execute = async (client, message, args) => {
     const avatar1 = await Canvas.loadImage(user1.displayAvatarURL({ format: 'png', size: 128 }));
     const avatar2 = await Canvas.loadImage(user2.displayAvatarURL({ format: 'png', size: 128 }));
 
-    // Устанавливаем режим наложения, чтобы фон был поверх аватарок
-    context.globalCompositeOperation = 'destination-over';
-
     // Рисуем фоновое изображение
     context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
-    // Сбрасываем режим наложения
-    context.globalCompositeOperation = 'source-over';
+    // Устанавливаем режим наложения, чтобы фон был поверх аватарок
+    context.globalCompositeOperation = 'destination-over';
 
     // Рисуем аватарки на Canvas с учетом выбранного расположения
     context.drawImage(avatar1, randomBackground.avatar1Position.x, randomBackground.avatar1Position.y, 100, 100);
     context.drawImage(avatar2, randomBackground.avatar2Position.x, randomBackground.avatar2Position.y, 100, 100);
+
+    // Сбрасываем режим наложения
+    context.globalCompositeOperation = 'source-over';
 
     context.font = "30px Arial";
     context.fillStyle = colorLove;
