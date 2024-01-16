@@ -15,10 +15,10 @@ exports.execute = async (client, message, args) => {
     // Генерация рандомного процента совпадения от 1 до 100
     const matchPercentage = Math.floor(Math.random() * 99) + 1;
 
-    let colorLove = "#ffffff";
+    const colorLove = "#ffffff";
 
-    if (matchPercentage >= 50) colorLove = "#00ff00"; // Зеленый цвет
-    else colorLove = "#ff0000"; // Красный цвет
+    if (matchPercentage >= 50) return colorLove = "GREEN";
+    else return colorLove = "RED";
 
     // Массив с вариациями фонового изображения
     const backgrounds = [
@@ -43,30 +43,30 @@ exports.execute = async (client, message, args) => {
     const canvas = Canvas.createCanvas(400, 200);
     const context = canvas.getContext("2d");
 
-    // Рисуем фоновое изображение
-    context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-
     // Загружаем аватарки пользователей
     const avatar1 = await Canvas.loadImage(user1.displayAvatarURL({ format: 'png', size: 128 }));
     const avatar2 = await Canvas.loadImage(user2.displayAvatarURL({ format: 'png', size: 128 }));
+
+    // Рисуем фоновое изображение
+    context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
     // Рисуем аватарки на Canvas с учетом выбранного расположения
     context.drawImage(avatar1, randomBackground.avatar1Position.x, randomBackground.avatar1Position.y, 100, 100);
     context.drawImage(avatar2, randomBackground.avatar2Position.x, randomBackground.avatar2Position.y, 100, 100);
 
     context.font = "30px Arial";
-    context.fillStyle = colorLove;
+    context.fillStyle = "colorLove";
     context.fillText(`❤️`, 180, 90);
 
     context.font = "20px Arial";
-    context.fillStyle = colorLove;
+    context.fillStyle = "colorLove";
     context.fillText(`${matchPercentage}%`, 175, 175);
 
     // Создаем вложение с изображением и отправляем его
     const attachment = new MessageAttachment(canvas.toBuffer(), "ship.png");
     const embed = new MessageEmbed()
       .setTitle("👫 Парочка")
-      .setColor(colorLove)
+      .setColor("#rrggbb")
       .attachFiles(attachment)
       .setImage("attachment://ship.png");
 
