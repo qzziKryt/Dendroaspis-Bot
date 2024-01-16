@@ -30,7 +30,7 @@ exports.execute = async (client, message, args) => {
       {
         url: "https://cdn.discordapp.com/attachments/985517052460683294/1196844995701907466/maxresdefault.png?ex=65b91bc3&is=65a6a6c3&hm=a6b81175c10759df4b20114d1d7578fc6ce3547759c4c6f459d20abe2463e909&",
         avatar1Position: { x: 120, y: 50 },
-        avatar2Position: { x: 220, y: 75 }
+        avatar2Position: { x: 220, y: 65 }
       },
       // Добавьте сколько угодно вариаций
     ];
