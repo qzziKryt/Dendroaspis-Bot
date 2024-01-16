@@ -54,8 +54,8 @@ exports.execute = async (client, message, args) => {
     context.globalCompositeOperation = 'destination-over';
 
     // Рисуем аватарки на Canvas с учетом выбранного расположения
-    context.drawImage(avatar1, randomBackground.avatar1Position.x, randomBackground.avatar1Position.y, 100, 100);
-    context.drawImage(avatar2, randomBackground.avatar2Position.x, randomBackground.avatar2Position.y, 100, 100);
+    context.drawImage(avatar1, randomBackground.avatar1Position.x, randomBackground.avatar1Position.y, 90, 90);
+    context.drawImage(avatar2, randomBackground.avatar2Position.x, randomBackground.avatar2Position.y, 90, 90);
 
     // Сбрасываем режим наложения
     context.globalCompositeOperation = 'source-over';
