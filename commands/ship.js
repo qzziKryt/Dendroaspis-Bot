@@ -25,7 +25,7 @@ exports.execute = async (client, message, args) => {
       {
         url: "https://cdn.discordapp.com/attachments/1117898910892036257/1197211876019409026/c47eac8dc2fbce7f.png?ex=65ba7172&is=65a7fc72&hm=2053d6ebc5caebba850f556cefd56bb7b089e6d60fd79f6a5c214c454f3f05d4&",
         avatar1Position: { x: 80, y: 25 },
-        avatar2Position: { x: 210, y: 50 }
+        avatar2Position: { x: 210, y: 45 }
       },
       {
         url: "https://cdn.discordapp.com/attachments/985517052460683294/1196844995701907466/maxresdefault.png?ex=65b91bc3&is=65a6a6c3&hm=a6b81175c10759df4b20114d1d7578fc6ce3547759c4c6f459d20abe2463e909&",
@@ -60,10 +60,6 @@ exports.execute = async (client, message, args) => {
 
     // Сбрасываем режим наложения
     context.globalCompositeOperation = 'source-over';
-
-    context.font = "30px Arial";
-    context.fillStyle = colorLove;
-    context.fillText(`❤️`, 180, 90);
 
     context.font = "36px Arial";
     context.lineWidth = 3;
