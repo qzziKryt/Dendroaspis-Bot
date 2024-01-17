@@ -23,7 +23,7 @@ exports.execute = async (client, message, args) => {
     // Массив с вариациями фонового изображения
     const backgrounds = [
       {
-        url: "https://cdn.discordapp.com/attachments/1117898899462561792/1196134715418226802/22cb5f35e7865988.png?ex=65b68643&is=65a41143&hm=62d830c2e357799f8adf3d94542133e2d362309b908fc38f0ac7275336f71318&",
+        url: "https://cdn.discordapp.com/attachments/1117898910892036257/1197211876019409026/c47eac8dc2fbce7f.png?ex=65ba7172&is=65a7fc72&hm=2053d6ebc5caebba850f556cefd56bb7b089e6d60fd79f6a5c214c454f3f05d4&",
         avatar1Position: { x: 80, y: 25 },
         avatar2Position: { x: 210, y: 50 }
       },
