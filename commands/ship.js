@@ -25,13 +25,14 @@ exports.execute = async (client, message, args) => {
       {
         url: "https://cdn.discordapp.com/attachments/1117898899462561792/1196134715418226802/22cb5f35e7865988.png?ex=65b68643&is=65a41143&hm=62d830c2e357799f8adf3d94542133e2d362309b908fc38f0ac7275336f71318&",
         avatar1Position: { x: 80, y: 25 },
-        avatar2Position: { x: 210, y: 40 }
+        avatar2Position: { x: 210, y: 50 }
       },
       {
         url: "https://cdn.discordapp.com/attachments/985517052460683294/1196844995701907466/maxresdefault.png?ex=65b91bc3&is=65a6a6c3&hm=a6b81175c10759df4b20114d1d7578fc6ce3547759c4c6f459d20abe2463e909&",
-        avatar1Position: { x: 120, y: 30 },
+        avatar1Position: { x: 120, y: 65 },
         avatar2Position: { x: 225, y: 65 }
       },
+      // y /\ меньше | \/ больше
       // Добавьте сколько угодно вариаций
     ];
 
