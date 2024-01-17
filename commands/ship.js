@@ -69,8 +69,8 @@ exports.execute = async (client, message, args) => {
     context.lineWidth = 3;
     context.strokeStyle = "black";
     context.fillStyle = colorLove;
-    context.fillText(`${matchPercentage}%`, 175, 175);
     context.strokeText(`${matchPercentage}%`, 175, 175);
+    context.fillText(`${matchPercentage}%`, 175, 175);
 
     // Создаем вложение с изображением и отправляем его
     const attachment = new MessageAttachment(canvas.toBuffer(), "ship.png");
