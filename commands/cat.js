@@ -8,8 +8,8 @@ exports.execute = async (client, message, args) => {
         const response = await catRequest.json();
 
         const embed = new Discord.MessageEmbed()
-            .setColor("#917898")
-            .setTitle(`${message.guild.name}, котики :)`)
+            .setColor("#rrggbb")
+            .setTitle(`котики`)
             .setImage(response[0].url);
 
         message.channel.send(embed);
