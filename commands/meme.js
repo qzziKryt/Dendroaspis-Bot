@@ -4,6 +4,7 @@ const fetch = require('node-fetch');
 
 exports.execute = async (client, message, args) => {
     try {
+        
         const Reds = [
             "memes",
             "me_irl",
@@ -14,7 +15,7 @@ exports.execute = async (client, message, args) => {
 
         const Rads = Reds[Math.floor(Math.random() * Reds.length)];
 
-        const res = await Fetch(`https://www.reddit.com/r/${Rads}/random/.json`);
+        const res = await fetch(`https://www.reddit.com/r/${Rads}/random/.json`);
 
         const json = await res.json();
 
@@ -32,6 +33,9 @@ exports.execute = async (client, message, args) => {
             .setTimestamp();
 
         return message.channel.send(Embed);
+    } catch (error) {
+        console.error("Error executing meme command:", error);
+        message.reply("An error occurred while processing the command.");
     }
 };
 
