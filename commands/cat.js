@@ -11,6 +11,7 @@ exports.execute = (client, message, args) => {
      .setTitle(`${message.guild.name}, котики :)`)
      .setImage(json.link) // Ставим лисичку картинкой!
     message.channel.send(embed); // Отсылаем сообщение
+  }
 }
 
 exports.help = {
