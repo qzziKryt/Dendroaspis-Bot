@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 
 exports.execute = async (client, message, args) => {
     try {
-        const catRequest = await fetch('https://api.thecatapi.com/v1/images/search');
+        const catRequest = await fetch('https://nekos.life/api/v2/img/meow');
         const response = await catRequest.json();
 
         const embed = new Discord.MessageEmbed()
